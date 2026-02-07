@@ -9,6 +9,7 @@ export default function About() {
     <AboutIntro/>
     <WhyChoseUs/>
     <Faq/>
+    
     </>
   );
 }

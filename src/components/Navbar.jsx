@@ -1,89 +1,107 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+
+const navLinks = [
+  { name: 'Home', href: '/' },
+  { name: 'About', href: '/about' },
+  { name: 'Services', href: '/services' },
+  { name: 'Blog', href: '/blog' },
+  { name: 'Contact Us', href: '/contact' },
+];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+
+  // Jab page change ho toh mobile menu automatically band ho jaye
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
 
   return (
-    <nav className="fixed top-0 md:top-6 w-full z-50 px-4 md:px-10 transition-all duration-300">
-      <div className="max-w-7xl mx-auto flex justify-between items-center py-3 md:py-0">
+    <nav className="fixed top-0 left-0 right-0 z-[100] px-6 py-4">
+      {/* Main Nav Container - Glass Effect */}
+      <div className="max-w-7xl mx-auto flex items-center justify-between bg-white/[0.03] backdrop-blur-xl border border-white/10 px-6 py-3 rounded-2xl shadow-2xl">
         
-        {/* --- LEFT: Logo --- */}
-        <Link href="/" className="flex items-center z-50 group">
-          <div className="relative w-32 md:w-44 h-auto transition-transform duration-300 group-hover:scale-105"> 
-            <Image 
-              src="/logo.png" 
-              alt="Nuxatech Logo"
-              width={180} 
-              height={60} 
-              className="object-contain w-full h-auto drop-shadow-[0_0_8px_rgba(34,211,238,0.4)]" 
-              priority 
-            />
-          </div>
+        {/* Logo */}
+        <Link href="/" className="relative z-[110] flex items-center gap-2">
+          <Image 
+            src="/logo.png" 
+            alt="Nuxatech Logo" 
+            width={120} 
+            height={40} 
+            className="object-contain"
+          />
         </Link>
 
-        {/* --- CENTER: Desktop Menu (Futuristic Glass) --- */}
-        <div className="hidden lg:flex items-center">
-          <ul className="flex space-x-10 px-10 py-3 rounded-full border border-white/10 bg-white/5 backdrop-blur-md shadow-2xl">
-            {['Home', 'About', 'Services', 'Blog', 'Contact Us'].map((item) => (
-              <li key={item}>
-                <Link 
-                  href={item === 'Home' ? '/' : `/${item.toLowerCase().replace(' ', '')}`} 
-                  className="text-white/80 text-sm font-medium tracking-wide hover:text-cyan-400 transition-colors duration-300"
-                >
-                  {item}
-                </Link>
-              </li>
-            ))}
-          </ul>
+        {/* Desktop Links */}
+        <div className="hidden md:flex items-center gap-8">
+          {navLinks.map((link) => (
+            <Link 
+              key={link.name} 
+              href={link.href}
+              className={`text-sm font-medium transition-colors ${
+                pathname === link.href ? 'text-cyan-400' : 'text-gray-300 hover:text-white'
+              }`}
+            >
+              {link.name}
+            </Link>
+          ))}
         </div>
 
-        {/* --- RIGHT: Book Button (Cyan Neon) --- */}
-        <div className="flex items-center z-50">
-          <Link 
-            href="/contact" 
-            className="hidden lg:block bg-cyan-500 hover:bg-cyan-400 text-black px-8 py-2.5 rounded-full font-bold text-sm tracking-tight transition-all duration-300 shadow-[0_0_15px_rgba(34,211,238,0.4)] hover:shadow-[0_0_25px_rgba(34,211,238,0.6)] hover:scale-105 active:scale-95"
-          >
-            Book Now
-          </Link>
-          
-          {/* Mobile Menu Toggle */}
-          <button 
-            onClick={() => setIsOpen(!isOpen)} 
-            className="lg:hidden text-cyan-400 text-3xl focus:outline-none ml-4 p-2"
-          >
-            {isOpen ? '✕' : '☰'}
-          </button>
-        </div>
+        {/* CTA Button (Desktop) */}
+        <Link 
+          href="/contact" 
+          className="hidden md:block bg-cyan-500 text-black px-6 py-2 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-cyan-400 transition-all shadow-lg shadow-cyan-500/20"
+        >
+          Book Now
+        </Link>
+
+        {/* Mobile Menu Toggle Button */}
+        <button 
+          onClick={() => setIsOpen(!isOpen)}
+          className="md:hidden relative z-[110] p-2 text-white focus:outline-none"
+        >
+          <div className="w-6 h-5 relative flex flex-col justify-between overflow-hidden">
+            <span className={`w-full h-0.5 bg-white transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-2' : ''}`} />
+            <span className={`w-full h-0.5 bg-white transition-all duration-300 ${isOpen ? 'translate-x-full opacity-0' : ''}`} />
+            <span className={`w-full h-0.5 bg-white transition-all duration-300 ${isOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+          </div>
+        </button>
       </div>
 
       {/* --- MOBILE MENU OVERLAY --- */}
-      <div className={`fixed inset-0 bg-[#020617]/98 backdrop-blur-2xl z-40 flex flex-col items-center justify-center transition-all duration-500 ease-in-out ${isOpen ? 'opacity-100 visible' : 'opacity-0 invisible -translate-y-5'} lg:hidden`}>
-        <ul className="text-center space-y-10">
-          {['Home', 'About', 'Services', 'Contact'].map((item) => (
-            <li key={item}>
-              <Link 
-                href={item === 'Home' ? '/' : `/${item.toLowerCase()}`} 
-                onClick={() => setIsOpen(false)} 
-                className="text-4xl text-white font-bold hover:text-cyan-400 transition-colors tracking-tighter"
-              >
-                {item}
-              </Link>
-            </li>
+      {/* Iska design aisa hai ki ye har page par upar se overlay banke aayega */}
+      <div className={`fixed inset-0 bg-[#020617]/95 backdrop-blur-2xl z-[105] md:hidden transition-all duration-500 ease-in-out ${
+        isOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
+      }`}>
+        <div className="flex flex-col items-center justify-center h-full space-y-8 p-6 text-center">
+          {navLinks.map((link, index) => (
+            <Link 
+              key={link.name} 
+              href={link.href}
+              className={`text-3xl font-black uppercase tracking-tighter transition-all duration-300 ${
+                pathname === link.href 
+                  ? 'text-cyan-400 scale-110' 
+                  : 'text-white/60 hover:text-white'
+              }`}
+              style={{ transitionDelay: `${index * 50}ms` }}
+            >
+              {link.name}
+            </Link>
           ))}
-          <li className="pt-8">
-             <Link 
-               href="/booking" 
-               onClick={() => setIsOpen(false)} 
-               className="bg-cyan-500 text-black px-12 py-4 rounded-full font-black text-xl uppercase tracking-widest shadow-[0_0_20px_rgba(34,211,238,0.5)]"
-             >
-               Book Now
-             </Link>
-          </li>
-        </ul>
+          
+          <Link 
+            href="/contact"
+            className="w-full max-w-xs bg-gradient-to-r from-cyan-500 to-purple-500 text-white py-4 rounded-2xl font-bold uppercase tracking-widest text-sm shadow-xl"
+          >
+            Get Started
+          </Link>
+        </div>
       </div>
     </nav>
   );

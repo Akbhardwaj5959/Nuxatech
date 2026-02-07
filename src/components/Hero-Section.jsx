@@ -27,7 +27,7 @@ export default function HeroSection() {
           {/* Left Side: Copy */}
           <div className="text-center lg:text-left">
             <span className="mb-4 inline-block text-xs font-mono tracking-[0.4em] text-cyan-400 md:text-sm uppercase">
-              NUXATECH AI SOLUTIONS
+              NUXATECH AI AUTOMATION
             </span>
             <h1 className="mb-8 text-5xl font-extrabold leading-[1.1] md:text-7xl">
               Automate the Future <br />
