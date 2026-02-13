@@ -1,29 +1,20 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image from 'next/image';
 
-export default function ContactPage() {
-  
-  // Form State
+export default function Contact() {
+  // Logic to handle form state
   const [formData, setFormData] = useState({
     name: '',
-    phone: '',
     email: '',
-    location: 'Sector 57',
-    checkIn: '',
-    checkOut: '',
+    phone: '',
+    service: 'AI Automation',
     message: ''
   });
 
-  const [status, setStatus] = useState(''); // Loading/Success Message
+  const [status, setStatus] = useState('');
 
-  // Handle Input Change
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  // Handle Form Submit
+  // Logic to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('Sending...');
@@ -32,162 +23,173 @@ export default function ContactPage() {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          pkg: formData.service, // backend 'pkg' expect kar raha hai
+          message: formData.message
+        }),
       });
 
-      if (res.status === 200) {
-        setStatus('Success');
-        alert("Booking request sent! Check your email.");
-        setFormData({ name: '', phone: '', email: '', location: 'Sector 57', checkIn: '', checkOut: '', message: '' }); // Form Reset
+      if (res.ok) {
+        setStatus('Message Sent Successfully!');
+        setFormData({ name: '', email: '', phone: '', service: 'AI Automation', message: '' });
       } else {
-        setStatus('Error');
-        alert("Something went wrong. Please try again.");
+        setStatus('Failed to send.');
       }
     } catch (error) {
-      console.error(error);
-      setStatus('Error');
+      setStatus('Error occurred.');
     }
   };
 
   return (
-    <main className="min-h-screen bg-primary-black">
+    <main className="min-h-screen bg-[#020617] text-white pt-32 pb-20 px-6 overflow-hidden relative">
       
-      {/* --- HERO SECTION --- */}
-      <section className="relative h-[50vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-black/60 z-10"></div>
-        <Image
-          src="/views/hall.jpg" 
-          alt="Contact Us"
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="relative z-20 text-center px-4 mt-16">
-          <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tighter mb-4 drop-shadow-xl">
-            BOOK YOUR <span className="text-gold">STAY</span>
+      {/* --- BACKGROUND GLOWS --- */}
+      <div className="absolute top-1/4 -left-20 w-96 h-96 bg-cyan-500/10 blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-purple-500/10 blur-[150px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        
+        {/* --- HEADER --- */}
+        <div className="text-center mb-20">
+          <div className="inline-block px-4 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/5 text-cyan-400 text-[10px] font-black uppercase tracking-[0.4em] mb-8">
+            Get In Touch
+          </div>
+          <h1 className="text-5xl md:text-8xl font-black italic tracking-tighter uppercase mb-6 leading-none">
+            Let's build <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">Something Great</span>
           </h1>
-          <p className="text-gray-200 tracking-widest uppercase text-xs md:text-sm font-light">
-            We are here to help you plan your getaway
+          <p className="text-gray-500 max-w-xl mx-auto text-sm md:text-lg font-medium">
+            Have a project in mind? Reach out to Nuxatech for AI automation and high-performance web solutions.
           </p>
         </div>
-      </section>
 
-      {/* --- FORM SECTION --- */}
-      <section className="max-w-7xl mx-auto px-6 py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
           
-          {/* LEFT: Info */}
-          <div className="flex flex-col justify-center">
-            <h3 className="text-gold text-sm font-bold uppercase tracking-widest mb-2">Reach Out to Us</h3>
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
-              Let&apos;s Plan Your <br /> Perfect <span className="text-gold">Getaway</span>
-            </h2>
-            <p className="text-gray-400 mb-10 leading-relaxed font-light">
-              Have questions about booking, amenities, or corporate tie-ups? 
-              Fill out the form or reach us directly. Our team is available 24/7.
-            </p>
+          {/* --- LEFT: CONTACT INFO --- */}
+          <div className="lg:col-span-5 space-y-10">
+            <div className="bg-white/5 border border-white/10 p-10 rounded-[3rem] backdrop-blur-xl">
+              <h3 className="text-3xl font-black italic mb-8 uppercase tracking-tight">Contact Details</h3>
+              
+              <div className="space-y-8">
+                <div className="flex gap-6 items-start">
+                  <div className="w-12 h-12 rounded-2xl bg-cyan-500/20 flex items-center justify-center text-cyan-400 flex-shrink-0">
+                    📧
+                  </div>
+                  <div>
+                    <h4 className="text-white font-bold text-sm uppercase tracking-widest mb-1">Email Us</h4>
+                    <p className="text-gray-400 text-lg">akbhardwaj973@gmail.com</p>
+                  </div>
+                </div>
 
-            {/* Icons List */}
-            <div className="space-y-6">
-              <div className="flex items-center space-x-6 group">
-                <div className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gold text-2xl group-hover:bg-gold group-hover:text-black transition-all">📞</div>
-                <div><p className="text-xs text-gray-400 uppercase tracking-wider">Call Us</p><p className="text-xl text-white font-bold">+91 98765 43210</p></div>
+                <div className="flex gap-6 items-start">
+                  <div className="w-12 h-12 rounded-2xl bg-purple-500/20 flex items-center justify-center text-purple-400 flex-shrink-0">
+                    📍
+                  </div>
+                  <div>
+                    <h4 className="text-white font-bold text-sm uppercase tracking-widest mb-1">Office Location</h4>
+                    <p className="text-gray-400 text-lg">Gurgaon, Haryana, India</p>
+                  </div>
+                </div>
+
+                <div className="flex gap-6 items-start">
+                  <div className="w-12 h-12 rounded-2xl bg-pink-500/20 flex items-center justify-center text-pink-400 flex-shrink-0">
+                    🌍
+                  </div>
+                  <div>
+                    <h4 className="text-white font-bold text-sm uppercase tracking-widest mb-1">Social Presence</h4>
+                    <p className="text-gray-400 text-lg">Nuxatech Official</p>
+                  </div>
+                </div>
               </div>
-              <div className="flex items-center space-x-6 group">
-                <div className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gold text-2xl group-hover:bg-gold group-hover:text-black transition-all">✉️</div>
-                <div><p className="text-xs text-gray-400 uppercase tracking-wider">Email Us</p><p className="text-xl text-white font-bold">bookings@alphastayz.com</p></div>
-              </div>
+            </div>
+
+            {/* Subtle CTA Card */}
+            <div className="p-10 rounded-[3rem] bg-gradient-to-br from-cyan-500 to-blue-600 text-black">
+              <h4 className="text-2xl font-black italic mb-4 uppercase">Direct Support?</h4>
+              <p className="font-bold mb-6 opacity-80 text-sm">Our AI experts are available 24/7 to help you with your queries.</p>
+              <button className="bg-black text-white px-8 py-3 rounded-xl font-bold uppercase text-xs tracking-widest hover:bg-white hover:text-black transition-all">
+                Chat with AI
+              </button>
             </div>
           </div>
 
-          {/* RIGHT: Advanced Form */}
-          <div className="glass p-8 md:p-10 rounded-3xl border border-white/10 shadow-2xl">
-            <h3 className="text-2xl text-white font-bold mb-6">Booking Details</h3>
-            
-            <form onSubmit={handleSubmit} className="space-y-5">
-              
-              {/* Name & Phone */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <div>
-                  <label className="text-gold text-[10px] uppercase font-bold ml-2">Your Name</label>
-                  <input name="name" value={formData.name} onChange={handleChange} type="text" placeholder="John Doe" className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white focus:border-gold outline-none" required />
+          {/* --- RIGHT: CONTACT FORM --- */}
+          <div className="lg:col-span-7 bg-white/5 border border-white/10 p-10 md:p-16 rounded-[3.5rem] backdrop-blur-2xl">
+            <form onSubmit={handleSubmit} className="space-y-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 ml-2">Full Name</label>
+                  <input 
+                    type="text" 
+                    required
+                    value={formData.name}
+                    onChange={(e) => setFormData({...formData, name: e.target.value})}
+                    placeholder="John Doe" 
+                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-cyan-500 transition-all text-white" 
+                  />
                 </div>
-                <div>
-                  <label className="text-gold text-[10px] uppercase font-bold ml-2">Phone Number</label>
-                  <input name="phone" value={formData.phone} onChange={handleChange} type="tel" placeholder="+91..." className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white focus:border-gold outline-none" required />
-                </div>
-              </div>
-
-              {/* Email & Location */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <div>
-                  <label className="text-gold text-[10px] uppercase font-bold ml-2">Email Address</label>
-                  <input name="email" value={formData.email} onChange={handleChange} type="email" placeholder="john@email.com" className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white focus:border-gold outline-none" required />
-                </div>
-                <div>
-                  <label className="text-gold text-[10px] uppercase font-bold ml-2">Select Location</label>
-                  <select name="location" value={formData.location} onChange={handleChange} className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white focus:border-gold outline-none appearance-none cursor-pointer">
-                    <option className="bg-[#111]">Sector 57 (Main)</option>
-                    <option className="bg-[#111]">Sector 42</option>
-                  </select>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 ml-2">Email Address</label>
+                  <input 
+                    type="email" 
+                    required
+                    value={formData.email}
+                    onChange={(e) => setFormData({...formData, email: e.target.value})}
+                    placeholder="john@example.com" 
+                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-cyan-500 transition-all text-white" 
+                  />
                 </div>
               </div>
 
-              {/* Check-in & Check-out */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <div>
-                  <label className="text-gold text-[10px] uppercase font-bold ml-2">Check-in Date</label>
-                  <input name="checkIn" value={formData.checkIn} onChange={handleChange} type="date" className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white focus:border-gold outline-none [color-scheme:dark] cursor-pointer" required />
-                </div>
-                <div>
-                  <label className="text-gold text-[10px] uppercase font-bold ml-2">Check-out Date</label>
-                  <input name="checkOut" value={formData.checkOut} onChange={handleChange} type="date" className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white focus:border-gold outline-none [color-scheme:dark] cursor-pointer" required />
-                </div>
+              {/* NAYA FIELD: Contact Number */}
+              <div className="space-y-2">
+                <label className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 ml-2">Contact Number</label>
+                <input 
+                  type="tel" 
+                  required
+                  value={formData.phone}
+                  onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                  placeholder="+91 98765 43210" 
+                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-cyan-500 transition-all text-white" 
+                />
               </div>
 
-              {/* Message */}
-              <div>
-                <label className="text-gold text-[10px] uppercase font-bold ml-2">Any Special Request? (Optional)</label>
-                <textarea name="message" value={formData.message} onChange={handleChange} rows="3" placeholder="Need extra mattress, early check-in etc..." className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white focus:border-gold outline-none resize-none"></textarea>
+              <div className="space-y-2">
+                <label className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 ml-2">Service Interested In</label>
+                <select 
+                  value={formData.service}
+                  onChange={(e) => setFormData({...formData, service: e.target.value})}
+                  className="w-full bg-[#0a1125] border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-cyan-500 transition-all text-white appearance-none"
+                >
+                  <option>AI Automation</option>
+                  <option>Full Stack Web Dev</option>
+                  <option>SEO Optimization</option>
+                  <option>Branding & Design</option>
+                </select>
               </div>
 
-              {/* Submit Button */}
-              <button 
-                type="submit" 
-                disabled={status === 'Sending...'}
-                className="w-full bg-gold text-black py-4 rounded-xl font-bold uppercase tracking-widest hover:bg-white transition-all shadow-lg active:scale-95 text-sm md:text-base disabled:opacity-50"
-              >
-                {status === 'Sending...' ? 'Processing...' : 'Confirm Booking Request'}
+              <div className="space-y-2">
+                <label className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 ml-2">Your Message</label>
+                <textarea 
+                  rows="5" 
+                  value={formData.message}
+                  onChange={(e) => setFormData({...formData, message: e.target.value})}
+                  placeholder="Tell us about your project..." 
+                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-cyan-500 transition-all text-white resize-none"
+                ></textarea>
+              </div>
+
+              <button type="submit" className="w-full bg-white text-black py-5 rounded-2xl font-black uppercase tracking-[0.3em] text-xs hover:bg-cyan-400 transition-all shadow-2xl active:scale-95">
+                {status || "Send Message to Nuxatech"}
               </button>
-
             </form>
           </div>
+
         </div>
-      </section>
-
-      {/* Google Map */}
-     {/* --- GOOGLE MAP (Original Colors) --- */}
-      <section className="max-w-7xl mx-auto px-6 pb-20">
-        <div className="w-full h-[300px] md:h-[400px] rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative group">
-          
-          {/* Map Overlay Badge */}
-          <div className="absolute top-4 left-4 z-10 bg-white/90 backdrop-blur-md px-4 py-2 rounded-lg border border-gray-200 shadow-lg pointer-events-none">
-             <p className="text-black text-[10px] font-bold uppercase tracking-widest">📍 Locate Alpha Stayz</p>
-          </div>
-
-          <iframe 
-            // Aapka Diya Hua Exact Location Link
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d877.1933588895296!2d77.0704637039101!3d28.426092507442924!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d196c9401672f%3A0x5874f8dc9f369e4b!2sAlpha%20Stayz!5e0!3m2!1sen!2sin!4v1768464655658!5m2!1sen!2sin"
-            width="100%" 
-            height="100%" 
-            style={{ border: 0 }} // Filter hata diya, ab normal color dikhega
-            allowFullScreen="" 
-            loading="lazy" 
-            referrerPolicy="no-referrer-when-downgrade"
-          ></iframe>
-        </div>
-      </section>
-
+      </div>
     </main>
   );
 }
