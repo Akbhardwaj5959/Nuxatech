@@ -2,8 +2,8 @@
 import { useState, useEffect, useRef } from 'react';
 
 const stats = [
-  { label: "Clients Served", value: 50, suffix: "+", icon: "🏨" },
-  { label: "AI Deployments", value: 120, suffix: "+", icon: "🧠" },
+  { label: "Clients Served", value: 25, suffix: "+", icon: "🏨" },
+  { label: "AI Deployments", value: 50, suffix: "+", icon: "🧠" },
   { label: "Client Satisfaction", value: 4.9, suffix: "/5", icon: "⭐" },
   { label: "Support Availability", value: 24, suffix: "/7", icon: "🛠️" },
 ];

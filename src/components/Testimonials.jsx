@@ -38,7 +38,7 @@ const scrollingReviews = [...reviews, ...reviews];
 
 export default function Testimonials() {
   return (
-    <section className="py-24 bg-[#020617] overflow-hidden relative">
+    <section className="py-10 bg-[#020617] overflow-hidden relative">
       {/* Background Decorative Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-96 bg-cyan-500/5 blur-[120px] pointer-events-none" />
 

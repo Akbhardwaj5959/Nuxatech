@@ -37,7 +37,7 @@ export default function Testimonials() {
   };
 
   return (
-    <section className=" bg-[#020617] overflow-hidden relative">
+    <section className=" bg-[#020617] overflow-hidden -py-10 relative">
       {/* ... (Infinite scroll code) ... */}
 
       <div className="mt-16 text-center">

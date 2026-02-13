@@ -1,10 +1,11 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 const services = [
   {
     title: "AI AUTOMATION",
     desc: "Intelligent AI solutions to streamline operations, enhance efficiency, and reduce costs. We automate repetitive tasks with smart agents.",
-    bgImage: "/ai-automation-bg.png",
+    bgImage: "/Images/image-1.png",
     border: "border-cyan-500/30",
     glow: "bg-cyan-500/10",
     btnColor: "bg-cyan-500 hover:shadow-[0_0_20px_rgba(34,211,238,0.6)]"
@@ -65,10 +66,11 @@ export default function Services() {
               <p className="text-gray-300 text-sm md:text-base mb-8 max-w-sm leading-relaxed">
                 {service.desc}
               </p>
-              
-              <button className={`w-fit ${service.btnColor} text-white px-8 py-3 rounded-xl font-bold text-xs uppercase tracking-widest transition-all duration-300 transform active:scale-95 shadow-lg`}>
+              <Link href="/services">
+                <button className={`w-fit ${service.btnColor} text-white px-8 py-3 rounded-xl font-bold text-xs uppercase tracking-widest transition-all duration-300 transform active:scale-95 shadow-lg`}>
                 Let's Talk
               </button>
+              </Link>
             </div>
 
             {/* Inner Border Glow */}

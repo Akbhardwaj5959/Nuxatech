@@ -1,3 +1,4 @@
+import Link from "next/link";
 
 export default function HeroSection() {
   return (
@@ -35,12 +36,16 @@ export default function HeroSection() {
             </h1>
             
             <div className="flex flex-col justify-center gap-5 sm:flex-row lg:justify-start">
+              <Link href="/services">
               <button className="rounded-full cursor-pointer bg-cyan-500 px-10 py-4 font-bold text-black transition-all duration-300 hover:shadow-[0_0_30px_rgba(34,211,238,0.6)]">
                 EXPLORE MORE
               </button>
+              </Link>
+              <Link href="/about">
               <button className="glass-hero cursor-pointer rounded-full border border-white/10 px-10 py-4 font-medium transition-colors hover:bg-white/5">
                 LEARN MORE
               </button>
+              </Link>
             </div>
           </div>
 
@@ -85,16 +90,16 @@ export default function HeroSection() {
   </div>
 
   {/* Floating "NX" Bubble - Ise thoda aur bright kiya hai */}
-  <div className="animate-float absolute -left-12 top-1/2 h-32 w-32 -translate-y-1/2 rounded-full glass-card-dark flex items-center justify-center p-4 border-cyan-500/40 shadow-[0_0_30px_rgba(34,211,238,0.3)] z-30">
+  {/* <div className="animate-float absolute -left-12 top-1/2 h-32 w-32 -translate-y-1/2 rounded-full glass-card-dark flex items-center justify-center p-4 border-cyan-500/40 shadow-[0_0_30px_rgba(34,211,238,0.3)] z-30">
      <div className="h-16 w-16 bg-gradient-to-br from-cyan-400 to-purple-600 rounded-lg flex items-center justify-center font-bold text-white text-2xl">
        NX
      </div>
-  </div>
+  </div> */}
 
   {/* Small 'H' Card */}
-  <div className="absolute right-0 top-10 flex h-14 w-14 items-center justify-center rounded-2xl glass-card-dark border-cyan-400/40 font-bold text-cyan-400 z-30 shadow-lg">
+  {/* <div className="absolute right-0 top-10 flex h-14 w-14 items-center justify-center rounded-2xl glass-card-dark border-cyan-400/40 font-bold text-cyan-400 z-30 shadow-lg">
     H
-  </div>
+  </div> */}
 
 </div>
         </div>

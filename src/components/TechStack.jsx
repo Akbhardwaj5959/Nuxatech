@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 
 const techStack = [
@@ -17,7 +18,7 @@ const benefits = [
 
 export default function TechStack() {
   return (
-    <section className="py-24 bg-[#020617] relative overflow-hidden">
+    <section className="py-20 bg-[#020617] relative overflow-hidden">
       {/* Decorative Glows */}
       <div className="absolute top-1/2 left-0 w-80 h-80 bg-cyan-500/10 blur-[120px] -translate-y-1/2" />
       
@@ -67,9 +68,13 @@ export default function TechStack() {
               ))}
             </div>
 
+            <Link href="/contact">
             <button className="mt-12 w-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white py-4 rounded-2xl font-black tracking-widest uppercase hover:shadow-[0_0_30px_rgba(34,211,238,0.4)] transition-all">
               Build My Project With Nuxatech
             </button>
+            
+            </Link>
+
           </div>
 
         </div>
