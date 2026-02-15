@@ -22,7 +22,7 @@ export default function HeroSection() {
       
 
       {/* --- HERO CONTENT --- */}
-      <main className="relative z-10 mx-auto max-w-7xl px-6 pt-32 lg:pt-48 pb-20">
+      <main className="relative z-10 mx-auto max-w-7xl px-6 pt-50 lg:pt-48 pb-20">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
           
           {/* Left Side: Copy */}

@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 export default function AboutIntro() {
   return (
-    <section className="relative pt-45 pb-16 md:pt-45 md:pb-45 px-6 bg-[#020617] overflow-hidden">
+    <section className="relative pt-50 pb-16 md:pt-50 md:pb-50 px-6 bg-[#020617] overflow-hidden">
       {/* Background Glows - Adjusted for better mobile blending */}
       <div className="absolute top-0 left-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-purple-600/10 blur-[80px] md:blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-cyan-600/10 blur-[80px] md:blur-[120px] pointer-events-none" />

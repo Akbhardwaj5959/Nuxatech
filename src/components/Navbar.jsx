@@ -23,9 +23,9 @@ export default function Navbar() {
   }, [pathname]);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-[100] px-6 py-4">
+    <nav className="fixed top-0 left-0 right-0 z-[100] px-4 py-2 md:px-6 md:py-4">
       {/* Main Nav Container - Glass Effect */}
-      <div className="max-w-7xl mx-auto flex items-center justify-between bg-white/[0.03] backdrop-blur-xl border border-white/10 px-6 py-3 rounded-2xl shadow-2xl">
+      <div className="max-w-7xl mx-auto flex items-center justify-between bg-white/[0.03] backdrop-blur-xl border border-white/10 px-4 py-2 md:px-6 md:py-3 rounded-xl md:rounded-2xl shadow-2xl">
 
         {/* Logo */}
         <Link href="/" className="relative z-[110] flex items-center gap-2">
@@ -34,7 +34,7 @@ export default function Navbar() {
             alt="Nuxatech Logo"
             width={130}
             height={40}
-            className="object-contain"
+            className="object-contain w-[100px] md:w-[130px] "
           />
         </Link>
 

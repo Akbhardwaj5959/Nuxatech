@@ -114,16 +114,16 @@ export default function BlogPage() {
       </div>
 
       {/* Blog Grid */}
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredBlogs.map((post) => (
           <div 
             key={post.id} 
             onClick={() => setSelectedPost(post)} 
-            className="group cursor-pointer bg-white/5 border border-white/10 rounded-[2.5rem] overflow-hidden hover:border-cyan-500/50 transition-all duration-500"
+            className="group cursor-pointer bg-white/5 border border-white/10 rounded-3xl overflow-hidden hover:border-cyan-500/50 transition-all duration-500"
           >
-            <div className="relative h-60 overflow-hidden">
+            <div className="relative h-48 overflow-hidden">
               <img src={post.image} className="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-all" alt={post.title} />
-              <div className="absolute top-5 left-5 bg-black/60 backdrop-blur-md px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest border border-white/10">
+              <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md px-2 py-1 rounded-md text-[9px] font-black uppercase tracking-widest border border-white/10">
                 {post.category}
               </div>
             </div>
